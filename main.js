@@ -1,11 +1,62 @@
-const container=document.querySelector('.container');
-
-function populate(size){
-    container.style.setProperty('--size', size)
-    for (let i=0; i<size*size; i++){
-        const div = document.createElement('div');
-        div.classList.add('pixel');
-        container.appendChild(div);
-    }
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-populate(4);
+
+html, body{
+    height: 100%;
+}
+
+body{
+    background-color: rgb(19, 83, 11);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.navbar, .container{
+    background-color: black;
+    width: 800px;
+    border-radius: 3px;
+}
+
+.navbar{
+    padding: 1em;
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn, input{
+    height: 35px;
+    padding: 0 1em;
+}
+
+.color{
+    padding: 0 0.5em;
+    width: 100px;
+    margin: 0 1em;
+
+}
+
+.number{
+    padding-right: 1em;
+}
+
+.container{
+    --size:4; /*a variable in css! to set rows and columns (or is a pointer?)*/
+    height: 800px;
+    display: grid;
+    grid-template-columns: repeat(var(--size), 1fr);
+    grid-template-rows: repeat(var(--size), 1fr);
+    gap: 3px;
+    padding: 3px;
+}
+
+.pixel{
+    background-color: rgb(34, 29, 29);
+    border-radius: 2px;
+}
