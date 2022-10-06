@@ -1,62 +1,64 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+const container=document.querySelector('.container');
+const sizeEl=document.querySelector('.size');
+let size = sizeEl.value;
+const color=document.querySelector('.color');
+const resetBtn = document.querySelector('.btn')
+
+
+let draw = false;
+
+function populate(size){
+    container.style.setProperty('--size', size)
+    for (let i=0; i<size*size; i++) //Adding each pixel in acord of the size
+    {
+        const div = document.createElement('div');
+        div.classList.add('pixel');
+
+        div.addEventListener('mouseover', function(){
+            if(!draw){return;}
+            div.style.backgroundColor=color.value;
+        });
+
+        div.addEventListener('mousedown', function(){
+            div.style.backgroundColor=color.value;
+        });
+
+
+        container.appendChild(div);
+    }
 }
 
-html, body{
-    height: 100%;
+function reset(){
+    container.innerHTML='';
+    populate(size);
 }
 
-body{
-    background-color: rgb(19, 83, 11);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+window.addEventListener("mousedown", function(){
+    draw=true;
 
-.navbar, .container{
-    background-color: black;
-    width: 800px;
-    border-radius: 3px;
-}
+});
 
-.navbar{
-    padding: 1em;
-    margin-bottom: 1em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+window.addEventListener("mouseup", function(){
+    draw=false;
 
-.btn, input{
-    height: 35px;
-    padding: 0 1em;
-}
+});
 
-.color{
-    padding: 0 0.5em;
-    width: 100px;
-    margin: 0 1em;
+resetBtn.addEventListener('click', function(){
+    reset();
+})
 
-}
 
-.number{
-    padding-right: 1em;
-}
 
-.container{
-    --size:4; /*a variable in css! to set rows and columns (or is a pointer?)*/
-    height: 800px;
-    display: grid;
-    grid-template-columns: repeat(var(--size), 1fr);
-    grid-template-rows: repeat(var(--size), 1fr);
-    gap: 3px;
-    padding: 3px;
-}
+sizeEl.addEventListener('keyup', function(){
+    size=sizeEl.value;
+    reset();
 
-.pixel{
-    background-color: rgb(34, 29, 29);
-    border-radius: 2px;
-}
+})
+
+sizeEl.addEventListener('change', function(){
+    size=sizeEl.value;
+    reset();
+
+})
+
+populate(size);
